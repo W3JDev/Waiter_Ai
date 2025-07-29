@@ -131,8 +131,8 @@ export default function AISettingsPage() {
         spice_level: spice_level,
       }
 
-      // Just pass the testData and language
-      const result = await AIAPI.generateDescription(testData, "en")
+      // Just pass the name and other parameters separately
+      const result = await AIAPI.generateDescription(name, "en", dietary_info, allergens, spice_level)
       setTestResult(result)
     } catch (error) {
       console.error("Error testing AI generation:", error)
@@ -290,7 +290,7 @@ export default function AISettingsPage() {
               className="font-mono text-sm"
             />
             <p className="mt-2 text-sm text-muted-foreground">
-              Use variables like {{ name }}, {{ dietary_info }}, {{ allergens }}, and {{ spice_level }} in your
+              Use variables like {"{name}"}, {"{dietary_info}"}, {"{allergens}"}, and {"{spice_level}"} in your
               template.
             </p>
           </CardContent>

@@ -101,47 +101,27 @@ export const mockCategories: MenuCategory[] = [
   {
     id: "67e93c307103ca2e355b16e1",
     name: "Sparkling",
-    description: "Non-alcoholic wine alternatives",
-    imageUrl: "https://images.unsplash.com/photo-1544145945-f90425340c7e",
-    order: 13,
-    isActive: true,
-    restaurant_id: "67e5935b23a0f201833a3012",
+    image_url: "https://images.unsplash.com/photo-1544145945-f90425340c7e",
   },
   {
     id: "67e93c307103ca2e355b16e2",
     name: "Starters",
-    description: "Small plates to begin your meal",
-    imageUrl: "https://images.unsplash.com/photo-1546241072-48010ad2862c",
-    order: 1,
-    isActive: true,
-    restaurant_id: "67e5935b23a0f201833a3012",
+    image_url: "https://images.unsplash.com/photo-1546241072-48010ad2862c",
   },
   {
     id: "67e93c307103ca2e355b16e3",
     name: "Mains",
-    description: "Hearty dishes for your main course",
-    imageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-    order: 2,
-    isActive: true,
-    restaurant_id: "67e5935b23a0f201833a3012",
+    image_url: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
   },
   {
     id: "67e93c307103ca2e355b16e4",
     name: "Desserts",
-    description: "Sweet treats to end your meal",
-    imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b",
-    order: 3,
-    isActive: true,
-    restaurant_id: "67e5935b23a0f201833a3012",
+    image_url: "https://images.unsplash.com/photo-1551024601-bec78aea704b",
   },
   {
     id: "67e93c307103ca2e355b16e5",
     name: "Drinks",
-    description: "Refreshing beverages",
-    imageUrl: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a",
-    order: 4,
-    isActive: true,
-    restaurant_id: "67e5935b23a0f201833a3012",
+    image_url: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a",
   },
 ]
 
@@ -152,64 +132,48 @@ export const mockMenuItems: MenuItem[] = [
     name: "Mango Passion Fizz",
     description: "Mango Juice, Passionfruit Syrup, Lime Juice, Calamansi Lime Juice, Passionfruit Pulp, Mint Leaf",
     price: 15,
-    categoryId: "67e93c307103ca2e355b16e5", // Drinks category
-    imageUrl: "https://images.unsplash.com/photo-1638176067000-9e2a3c1a0a03",
+    category_id: "67e93c307103ca2e355b16e5", // Drinks category
+    image_url: "https://images.unsplash.com/photo-1638176067000-9e2a3c1a0a03",
     allergens: ["sugar"],
-    isAvailable: true,
+    available: true,
     dietary_info: [],
     featured: false,
-    nutritionalInfo: {
-      calories: 120,
-      carbs: 30,
-      protein: 0,
-      fat: 0,
-    },
   },
   {
     id: "67e93c307103ca2e355b1703",
     name: "Buckwheat Fried Chicken",
     description: "Our signature dish - crispy fried chicken with a buckwheat coating. Served with house-made sauce.",
     price: 27,
-    categoryId: "67e93c307103ca2e355b16e2", // Starters category
-    imageUrl: "https://images.unsplash.com/photo-1562967914-608f82629710",
+    category_id: "67e93c307103ca2e355b16e2", // Starters category
+    image_url: "https://images.unsplash.com/photo-1562967914-608f82629710",
     allergens: ["gluten", "eggs"],
-    isAvailable: true,
+    available: true,
     dietary_info: [],
     spice_level: "mild",
     featured: true,
-    nutritionalInfo: {
-      calories: 450,
-      protein: 28,
-      carbs: 30,
-      fat: 22,
-    },
   },
   {
     id: "67e93c307103ca2e355b1704",
     name: "Pork Ribs with Pineapple Glaze",
     description: "Tender pork ribs slow-cooked and glazed with our sweet-tangy pineapple sauce.",
     price: 45,
-    categoryId: "67e93c307103ca2e355b16e3", // Mains category
-    imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947",
+    category_id: "67e93c307103ca2e355b16e3", // Mains category
+    image_url: "https://images.unsplash.com/photo-1544025162-d76694265947",
     allergens: [],
-    isAvailable: true,
+    available: true,
     dietary_info: [],
     spice_level: "mild",
     featured: true,
-    variants: [
-      { name: "Half Rack", price: 45 },
-      { name: "Full Rack", price: 85 },
-    ],
   },
   {
     id: "67e93c307103ca2e355b1705",
     name: "Pork Chop with Watercress Salad",
     description: "Juicy pork chop served with fresh watercress salad and house dressing.",
     price: 38,
-    categoryId: "67e93c307103ca2e355b16e3", // Mains category
-    imageUrl: "https://images.unsplash.com/photo-1432139555190-58524dae6a55",
+    category_id: "67e93c307103ca2e355b16e3", // Mains category
+    image_url: "https://images.unsplash.com/photo-1432139555190-58524dae6a55",
     allergens: [],
-    isAvailable: true,
+    available: true,
     dietary_info: [],
     featured: false,
   },
@@ -218,10 +182,10 @@ export const mockMenuItems: MenuItem[] = [
     name: "Whole Roast Tilapia with Harissa",
     description: "Fresh tilapia roasted whole with North African harissa spices.",
     price: 52,
-    categoryId: "67e93c307103ca2e355b16e3", // Mains category
-    imageUrl: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2",
+    category_id: "67e93c307103ca2e355b16e3", // Mains category
+    image_url: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2",
     allergens: ["fish"],
-    isAvailable: true,
+    available: true,
     dietary_info: [],
     spice_level: "medium",
     featured: true,
@@ -231,28 +195,22 @@ export const mockMenuItems: MenuItem[] = [
     name: "Tiramisu",
     description: "Classic Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream.",
     price: 18,
-    categoryId: "67e93c307103ca2e355b16e4", // Desserts category
-    imageUrl: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9",
+    category_id: "67e93c307103ca2e355b16e4", // Desserts category
+    image_url: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9",
     allergens: ["dairy", "eggs", "gluten"],
-    isAvailable: true,
+    available: true,
     dietary_info: ["vegetarian"],
     featured: true,
-    nutritionalInfo: {
-      calories: 350,
-      protein: 5,
-      carbs: 35,
-      fat: 20,
-    },
   },
   {
     id: "67e93c307103ca2e355b1708",
     name: "Non-Alcoholic Prosecco",
     description: "Alcohol-free sparkling wine with notes of green apple and peach.",
     price: 22,
-    categoryId: "67e93c307103ca2e355b16e1", // Sparkling category
-    imageUrl: "https://images.unsplash.com/photo-1605270012917-bf357a1fae9e",
+    category_id: "67e93c307103ca2e355b16e1", // Sparkling category
+    image_url: "https://images.unsplash.com/photo-1605270012917-bf357a1fae9e",
     allergens: [],
-    isAvailable: true,
+    available: true,
     dietary_info: ["vegan", "alcohol-free"],
     featured: false,
   },
@@ -263,59 +221,39 @@ export const mockTranslations: Record<string, MenuTranslation[]> = {
   "67e93c307103ca2e355b1702": [
     {
       id: "trans1",
-      itemId: "67e93c307103ca2e355b1702",
-      language: "zh",
-      translatedName: "芒果百香果气泡饮",
-      translatedDescription: "芒果汁，百香果糖浆，青柠汁，金桔青柠汁，百香果果肉，薄荷叶",
-      lastUpdated: new Date("2025-03-15"),
-      isApproved: true,
-      translatedAllergens: ["糖"],
+      item_id: "67e93c307103ca2e355b1702",
+      language_code: "zh",
+      translated_name: "芒果百香果气泡饮",
+      translated_description: "芒果汁，百香果糖浆，青柠汁，金桔青柠汁，百香果果肉，薄荷叶",
     },
     {
       id: "trans2",
-      itemId: "67e93c307103ca2e355b1702",
-      language: "ms",
-      translatedName: "Fizz Mangga Markisa",
-      translatedDescription: "Jus Mangga, Sirap Markisa, Jus Limau, Jus Limau Calamansi, Pulpa Markisa, Daun Pudina",
-      lastUpdated: new Date("2025-03-15"),
-      isApproved: true,
+      item_id: "67e93c307103ca2e355b1702",
+      language_code: "ms",
+      translated_name: "Fizz Mangga Markisa",
+      translated_description: "Jus Mangga, Sirap Markisa, Jus Limau, Jus Limau Calamansi, Pulpa Markisa, Daun Pudina",
     },
   ],
   "67e93c307103ca2e355b1703": [
     {
       id: "trans3",
-      itemId: "67e93c307103ca2e355b1703",
-      language: "zh",
-      translatedName: "荞麦炸鸡",
-      translatedDescription: "我们的招牌菜 - 外皮酥脆的荞麦炸鸡。配自制酱料。",
-      lastUpdated: new Date("2025-03-15"),
-      isApproved: true,
-      translatedAllergens: ["麸质", "鸡蛋"],
+      item_id: "67e93c307103ca2e355b1703",
+      language_code: "zh",
+      translated_name: "荞麦炸鸡",
+      translated_description: "我们的招牌菜 - 外皮酥脆的荞麦炸鸡。配自制酱料。",
     },
   ],
 }
 
 // Mock AI Config
 export const mockAIConfig: AIConfig = {
-  model: "llama-3.3-70b-versatile",
-  temperature: 0.7,
-  maxTokens: 300,
-  languagePreferences: ["en", "zh", "ms", "vi", "my", "ta"],
-  customPrompts: {
-    menuDescription:
-      "Generate a detailed and appealing description for a menu item called {{name}}. If any of the following information is available, incorporate it into the description: {{dietary_info}}, {{allergens}}, {{spice_level}}. Make it sound enticing and descriptive, between 100-150 characters.",
-    translationPrompt:
-      "Translate the following menu item name and description to {{language}}. Maintain the tone and style of the original text.",
-  },
-  apiKey: "sk-xxxxxxxxxxxxxxxxxxxx",
-  endpointUrl: "https://api.openai.com/v1",
-
-  // Additional fields from our existing model
   id: "67e5937d23a0f201833a301d",
   restaurant_id: "67e5935b23a0f201833a3012",
-  provider: "google",
-  prompt_template:
-    "You are a friendly menu assistant for Table & Apron restaurant in Damansara Kim, Malaysia. Help customers with their menu queries in a warm, conversational manner.",
+  provider: "groq",
+  model: "llama-3.3-70b-versatile",
+  temperature: 0.7,
+  max_tokens: 300,
+  prompt_template: "Generate a detailed and appealing description for a menu item called {{name}}. If any of the following information is available, incorporate it into the description: {{dietary_info}}, {{allergens}}, {{spice_level}}. Make it sound enticing and descriptive, between 100-150 characters.",
 }
 
 // Mock API response for AI generation

@@ -33,21 +33,8 @@ export default function RestaurantProfilePage() {
   const [formData, setFormData] = useState<Partial<Restaurant>>({
     name: "",
     description: "",
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      postalCode: "",
-      country: "",
-    },
-    contact: {
-      phone: "",
-      email: "",
-      website: "",
-    },
-    businessHours: {},
-    cuisineType: [],
-    isActive: true,
+    address: "",
+    phone: "",
   })
 
   // Fetch restaurant data
@@ -59,27 +46,10 @@ export default function RestaurantProfilePage() {
         const restaurantData = await RestaurantAPI.getRestaurant(RESTAURANT_ID)
         setRestaurant(restaurantData)
 
-        // Transform data to match our form structure
-        const transformedData = {
+        // Transform data to match our form structure  
+        setFormData({
           ...restaurantData,
-          address: {
-            street: restaurantData.address || "",
-            city: "",
-            state: "",
-            postalCode: "",
-            country: "",
-          },
-          contact: {
-            phone: restaurantData.phone || "",
-            email: "",
-            website: "",
-          },
-          businessHours: {},
-          cuisineType: [],
-          isActive: true,
-        }
-
-        setFormData(transformedData)
+        })
 
         // Set image previews
         if (restaurantData.logo_url) {
@@ -105,23 +75,10 @@ export default function RestaurantProfilePage() {
 
   // Handle form input changes
   const handleChange = (field: string, value: any) => {
-    setFormData((prev) => {
-      const newData = { ...prev }
-
-      // Handle nested fields
-      if (field.includes(".")) {
-        const [parent, child] = field.split(".")
-        newData[parent as keyof typeof newData] = {
-          ...newData[parent as keyof typeof newData],
-          [child]: value,
-        }
-      } else {
-        // @ts-ignore - We're using string keys
-        newData[field] = value
-      }
-
-      return newData
-    })
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }))
   }
 
   // Handle logo upload
@@ -156,7 +113,7 @@ export default function RestaurantProfilePage() {
 
   // Save restaurant settings
   const saveSettings = async () => {
-    if (!formData.name || !formData.address || !formData.contact?.phone) {
+    if (!formData.name || !formData.address || !formData.phone) {
       toast({
         title: "Error",
         description: "Please fill in all required fields.",
@@ -170,8 +127,6 @@ export default function RestaurantProfilePage() {
       // Transform data back to the API format
       const apiData = {
         ...formData,
-        address: formData.address?.street || "",
-        phone: formData.contact?.phone || "",
       }
 
       // Update restaurant data
@@ -260,15 +215,6 @@ export default function RestaurantProfilePage() {
                   placeholder="Describe your restaurant"
                   rows={4}
                 />
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={(checked) => handleChange("isActive", checked)}
-                />
-                <Label htmlFor="isActive">Restaurant is active and visible to customers</Label>
               </div>
             </CardContent>
           </Card>
@@ -360,33 +306,12 @@ export default function RestaurantProfilePage() {
                   <Label htmlFor="phone">Phone Number *</Label>
                   <Input
                     id="phone"
-                    value={formData.contact?.phone || ""}
-                    onChange={(e) => handleChange("contact.phone", e.target.value)}
+                    value={formData.phone || ""}
+                    onChange={(e) => handleChange("phone", e.target.value)}
                     placeholder="Enter phone number"
                     required
                   />
                 </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.contact?.email || ""}
-                    onChange={(e) => handleChange("contact.email", e.target.value)}
-                    placeholder="Enter email address"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="website">Website</Label>
-                <Input
-                  id="website"
-                  value={formData.contact?.website || ""}
-                  onChange={(e) => handleChange("contact.website", e.target.value)}
-                  placeholder="https://your-website.com"
-                />
               </div>
 
               <div className="space-y-2">
@@ -434,58 +359,15 @@ export default function RestaurantProfilePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="street">Street Address *</Label>
-                <Input
-                  id="street"
-                  value={formData.address?.street || ""}
-                  onChange={(e) => handleChange("address.street", e.target.value)}
-                  placeholder="Enter street address"
+                <Label htmlFor="address">Full Address *</Label>
+                <Textarea
+                  id="address"
+                  value={formData.address || ""}
+                  onChange={(e) => handleChange("address", e.target.value)}
+                  placeholder="Enter complete restaurant address"
                   required
+                  rows={3}
                 />
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="city">City</Label>
-                  <Input
-                    id="city"
-                    value={formData.address?.city || ""}
-                    onChange={(e) => handleChange("address.city", e.target.value)}
-                    placeholder="Enter city"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="state">State/Province</Label>
-                  <Input
-                    id="state"
-                    value={formData.address?.state || ""}
-                    onChange={(e) => handleChange("address.state", e.target.value)}
-                    placeholder="Enter state or province"
-                  />
-                </div>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="postalCode">Postal Code</Label>
-                  <Input
-                    id="postalCode"
-                    value={formData.address?.postalCode || ""}
-                    onChange={(e) => handleChange("address.postalCode", e.target.value)}
-                    placeholder="Enter postal code"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="country">Country</Label>
-                  <Input
-                    id="country"
-                    value={formData.address?.country || ""}
-                    onChange={(e) => handleChange("address.country", e.target.value)}
-                    placeholder="Enter country"
-                  />
-                </div>
               </div>
             </CardContent>
           </Card>
@@ -501,79 +383,14 @@ export default function RestaurantProfilePage() {
               <CardDescription>Set your restaurant's operating hours.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
-                  <div
-                    key={day}
-                    className="space-y-2 pb-4 border-b border-slate-200 dark:border-slate-700 last:border-0"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-medium">{day}</h3>
-                      <div className="flex items-center space-x-2">
-                        <Label htmlFor={`${day.toLowerCase()}-closed`} className="text-sm">
-                          Closed
-                        </Label>
-                        <Switch
-                          id={`${day.toLowerCase()}-closed`}
-                          checked={!formData.businessHours?.[day.toLowerCase()]?.open}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              // Remove hours for this day
-                              const newHours = { ...formData.businessHours }
-                              delete newHours[day.toLowerCase()]
-                              handleChange("businessHours", newHours)
-                            } else {
-                              // Add default hours for this day
-                              handleChange("businessHours", {
-                                ...formData.businessHours,
-                                [day.toLowerCase()]: { open: "09:00", close: "17:00" },
-                              })
-                            }
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    {formData.businessHours?.[day.toLowerCase()]?.open && (
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor={`${day.toLowerCase()}-open`}>Opening Time</Label>
-                          <Input
-                            id={`${day.toLowerCase()}-open`}
-                            type="time"
-                            value={formData.businessHours[day.toLowerCase()].open}
-                            onChange={(e) =>
-                              handleChange("businessHours", {
-                                ...formData.businessHours,
-                                [day.toLowerCase()]: {
-                                  ...formData.businessHours[day.toLowerCase()],
-                                  open: e.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor={`${day.toLowerCase()}-close`}>Closing Time</Label>
-                          <Input
-                            id={`${day.toLowerCase()}-close`}
-                            type="time"
-                            value={formData.businessHours[day.toLowerCase()].close}
-                            onChange={(e) =>
-                              handleChange("businessHours", {
-                                ...formData.businessHours,
-                                [day.toLowerCase()]: {
-                                  ...formData.businessHours[day.toLowerCase()],
-                                  close: e.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              <div className="text-center py-8">
+                <Clock className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">
+                  Operating hours management will be available in the enterprise version.
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Use the existing operating hours display on the home page for now.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -589,91 +406,14 @@ export default function RestaurantProfilePage() {
               <CardDescription>Select the types of cuisine your restaurant offers.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex flex-wrap gap-2">
-                  {formData.cuisineType?.map((cuisine, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm"
-                    >
-                      {cuisine}
-                      <button
-                        type="button"
-                        className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
-                        onClick={() => {
-                          const newCuisineTypes = [...(formData.cuisineType || [])]
-                          newCuisineTypes.splice(index, 1)
-                          handleChange("cuisineType", newCuisineTypes)
-                        }}
-                      >
-                        &times;
-                      </button>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex gap-2">
-                  <Input
-                    id="newCuisine"
-                    placeholder="Add cuisine type (e.g., Italian, Thai)"
-                    className="flex-1"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault()
-                        const input = e.currentTarget
-                        if (input.value.trim()) {
-                          handleChange("cuisineType", [...(formData.cuisineType || []), input.value.trim()])
-                          input.value = ""
-                        }
-                      }
-                    }}
-                  />
-                  <Button
-                    type="button"
-                    onClick={(e) => {
-                      const input = document.getElementById("newCuisine") as HTMLInputElement
-                      if (input.value.trim()) {
-                        handleChange("cuisineType", [...(formData.cuisineType || []), input.value.trim()])
-                        input.value = ""
-                      }
-                    }}
-                  >
-                    Add
-                  </Button>
-                </div>
-
-                <div className="mt-4">
-                  <h4 className="text-sm font-medium mb-2">Popular Cuisine Types</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "Italian",
-                      "Chinese",
-                      "Japanese",
-                      "Mexican",
-                      "Indian",
-                      "Thai",
-                      "French",
-                      "Mediterranean",
-                      "American",
-                      "Malaysian",
-                    ].map((cuisine) => (
-                      <Button
-                        key={cuisine}
-                        variant="outline"
-                        size="sm"
-                        type="button"
-                        onClick={() => {
-                          if (!formData.cuisineType?.includes(cuisine)) {
-                            handleChange("cuisineType", [...(formData.cuisineType || []), cuisine])
-                          }
-                        }}
-                        disabled={formData.cuisineType?.includes(cuisine)}
-                      >
-                        {cuisine}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
+              <div className="text-center py-8">
+                <Globe className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">
+                  Cuisine type management will be available in the enterprise version.
+                </p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  This will help categorize your restaurant and improve discoverability.
+                </p>
               </div>
             </CardContent>
           </Card>
