@@ -39,7 +39,7 @@ export function VoiceChatAssistant() {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const { restaurant } = useRestaurantStore()
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  const recognitionRef = useRef<any | null>(null)
   const synthRef = useRef<SpeechSynthesis | null>(null)
 
   // Initialize speech recognition and synthesis
@@ -53,7 +53,7 @@ export function VoiceChatAssistant() {
         recognitionRef.current.interimResults = false
         recognitionRef.current.lang = "en-US"
 
-        recognitionRef.current.onresult = (event) => {
+        recognitionRef.current.onresult = (event: any) => {
           const transcript = event.results[0][0].transcript
           setInput(transcript)
           setIsListening(false)
@@ -61,7 +61,7 @@ export function VoiceChatAssistant() {
           handleSend(transcript, true)
         }
 
-        recognitionRef.current.onerror = (event) => {
+        recognitionRef.current.onerror = (event: any) => {
           console.error("Speech recognition error", event.error)
           setIsListening(false)
         }

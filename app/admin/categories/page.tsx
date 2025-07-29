@@ -44,9 +44,6 @@ export default function CategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState<MenuCategory | null>(null)
   const [newCategory, setNewCategory] = useState<Partial<MenuCategory>>({
     name: "",
-    description: "",
-    restaurant_id: RESTAURANT_ID,
-    order: 0,
   })
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
@@ -74,10 +71,8 @@ export default function CategoriesPage() {
   }, [])
 
   // Filter categories based on search query
-  const filteredCategories = categories.filter(
-    (category) =>
-      category.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (category.description && category.description.toLowerCase().includes(searchQuery.toLowerCase())),
+  const filteredCategories = categories.filter((category) =>
+    category.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   // Handle image upload
@@ -107,9 +102,6 @@ export default function CategoriesPage() {
     }
 
     try {
-      // Set the order to be the last in the list
-      newCategory.order = categories.length + 1
-
       // Upload image if selected
       if (imageFile) {
         // In a real app, you would upload the image and get the URL
@@ -121,9 +113,6 @@ export default function CategoriesPage() {
       setIsAddCategoryOpen(false)
       setNewCategory({
         name: "",
-        description: "",
-        restaurant_id: RESTAURANT_ID,
-        order: 0,
       })
       setImageFile(null)
       setImagePreview(null)
@@ -201,60 +190,22 @@ export default function CategoriesPage() {
     }
   }
 
-  // Move category up in order
+  // Move category up in order (disabled - no order field in schema)
   const handleMoveUp = async (index: number) => {
-    if (index === 0) return
-
-    try {
-      const newCategories = [...categories]
-      const temp = newCategories[index].order
-      newCategories[index].order = newCategories[index - 1].order
-      newCategories[index - 1].order = temp[
-        // Swap positions in the array
-        (newCategories[index], newCategories[index - 1])
-      ] = [newCategories[index - 1], newCategories[index]]
-
-      // Update in the database
-      await MenuAPI.updateCategory(newCategories[index].id, { order: newCategories[index].order })
-      await MenuAPI.updateCategory(newCategories[index - 1].id, { order: newCategories[index - 1].order })
-
-      setCategories(newCategories)
-    } catch (error) {
-      console.error("Error moving category:", error)
-      toast({
-        title: "Error",
-        description: "Failed to reorder categories. Please try again.",
-        variant: "destructive",
-      })
-    }
+    // Reordering not implemented - requires order field in MenuCategory
+    toast({
+      title: "Info",
+      description: "Category reordering is not available in this version.",
+    })
   }
 
-  // Move category down in order
+  // Move category down in order (disabled - no order field in schema)
   const handleMoveDown = async (index: number) => {
-    if (index === categories.length - 1) return
-
-    try {
-      const newCategories = [...categories]
-      const temp = newCategories[index].order
-      newCategories[index].order = newCategories[index + 1].order
-      newCategories[index + 1].order = temp[
-        // Swap positions in the array
-        (newCategories[index], newCategories[index + 1])
-      ] = [newCategories[index + 1], newCategories[index]]
-
-      // Update in the database
-      await MenuAPI.updateCategory(newCategories[index].id, { order: newCategories[index].order })
-      await MenuAPI.updateCategory(newCategories[index + 1].id, { order: newCategories[index + 1].order })
-
-      setCategories(newCategories)
-    } catch (error) {
-      console.error("Error moving category:", error)
-      toast({
-        title: "Error",
-        description: "Failed to reorder categories. Please try again.",
-        variant: "destructive",
-      })
-    }
+    // Reordering not implemented - requires order field in MenuCategory
+    toast({
+      title: "Info", 
+      description: "Category reordering is not available in this version.",
+    })
   }
 
   if (isLoading) {
@@ -297,15 +248,6 @@ export default function CategoriesPage() {
                   value={newCategory.name}
                   onChange={(e) => setNewCategory((prev) => ({ ...prev, name: e.target.value }))}
                   required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  placeholder="Category description"
-                  value={newCategory.description || ""}
-                  onChange={(e) => setNewCategory((prev) => ({ ...prev, description: e.target.value }))}
                 />
               </div>
               <div className="space-y-2">
@@ -366,7 +308,6 @@ export default function CategoriesPage() {
                 <TableHead>Order</TableHead>
                 <TableHead>Image</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -385,7 +326,7 @@ export default function CategoriesPage() {
                         >
                           <MoveUp className="h-4 w-4" />
                         </Button>
-                        <span>{category.order}</span>
+                        <span className="text-sm text-muted-foreground">#{index + 1}</span>
                         <Button
                           variant="ghost"
                           size="icon"
@@ -408,7 +349,6 @@ export default function CategoriesPage() {
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{category.name}</TableCell>
-                    <TableCell className="max-w-xs truncate">{category.description || "-"}</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -473,15 +413,6 @@ export default function CategoriesPage() {
                   value={selectedCategory.name}
                   onChange={(e) => setSelectedCategory({ ...selectedCategory, name: e.target.value })}
                   required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="edit-description">Description</Label>
-                <Textarea
-                  id="edit-description"
-                  placeholder="Category description"
-                  value={selectedCategory.description || ""}
-                  onChange={(e) => setSelectedCategory({ ...selectedCategory, description: e.target.value })}
                 />
               </div>
               <div className="space-y-2">

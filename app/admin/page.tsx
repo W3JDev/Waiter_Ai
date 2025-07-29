@@ -44,7 +44,7 @@ export default function AdminDashboard() {
 
   // Calculate stats
   const totalItems = items.length
-  const availableItems = items.filter((item) => item.isAvailable || item.available).length
+  const availableItems = items.filter((item) => item.available).length
   const featuredItems = items.filter((item) => item.featured).length
   const totalCategories = categories.length
   const languages = ["EN", "ZH", "VI", "MS", "MY", "TA"]

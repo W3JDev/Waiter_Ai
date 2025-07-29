@@ -1,22 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Mona_Sans as FontSans } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
 import { MobileNavigation } from "@/components/mobile-navigation"
 import { Toaster } from "@/components/ui/toaster"
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
 export const metadata: Metadata = {
-  title: "MenuMate | Restaurant Menu Management",
-  description: "Modern restaurant menu management with AI-powered descriptions and multi-language support",
+  title: "WaiterAI Enterprise | Restaurant AI Management Platform",
+  description: "Enterprise-ready AI-powered restaurant management platform with menu optimization, multi-language support, and real-time analytics",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-    generator: 'v0.dev'
+  generator: 'WaiterAI Enterprise'
 }
 
 export default function RootLayout({
@@ -26,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+      <body className={cn("min-h-screen bg-background font-sans antialiased")}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="flex flex-col min-h-screen pb-16 md:pb-0">
             {children}
