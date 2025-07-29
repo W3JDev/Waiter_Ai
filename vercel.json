@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install --legacy-peer-deps",
+  "env": {
+    "POSTGRES_URL": {
+      "@type": "postgres"
+    },
+    "DEEPSEEK_API_KEY": {
+      "@type": "secret"
+    },
+    "GOOGLE_AI_API_KEY": {
+      "@type": "secret"
+    },
+    "NEXTAUTH_SECRET": {
+      "@type": "secret"
+    },
+    "STRIPE_SECRET_KEY": {
+      "@type": "secret"
+    },
+    "UPLOADTHING_SECRET": {
+      "@type": "secret"
+    },
+    "RESEND_API_KEY": {
+      "@type": "secret"
+    }
+  },
+  "functions": {
+    "app/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "regions": ["sin1"],
+  "redirects": [
+    {
+      "source": "/dashboard",
+      "destination": "/admin"
+    }
+  ]
+}
