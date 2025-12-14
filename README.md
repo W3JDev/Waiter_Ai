@@ -1,3 +1,7 @@
+
+
+## Checkout our NEW_REPO & NEW version [WaiterAi](https://github.com/W3JDev/Waiter_Ai) aka [MenuMuze](https://github.com/W3JDev/MenuMuze_The_WaiterAi) ✨
+
 ## WaiterAI 🍽️✨  
 **AI-Powered Restaurant Menu Management System**  
 
